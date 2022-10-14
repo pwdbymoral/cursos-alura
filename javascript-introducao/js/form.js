@@ -12,7 +12,7 @@ adicionar.addEventListener('click', (event) => {
     var erros = validatePaciente(paciente);
 
     if(erros.length > 0) {
-        alert('Paciente inválido! Tente novamente.')
+        showsErrorMessage(erros);
     } else {
         //cria tr e td
         var pacienteTr = createTr(paciente);
@@ -22,6 +22,7 @@ adicionar.addEventListener('click', (event) => {
         tabela.appendChild(pacienteTr);
     
         form.reset();
+        document.querySelector(".errorlist").innerHTML = "";
     }
     
 });
@@ -64,14 +65,37 @@ function createTd(dado, classe) {
 }
 
 function validatePaciente(paciente) {
-    var erros= [];
+    var errors= [];
     
+    if(paciente.nome.length === 0) {
+        errors.push("O nome não pode ser em branco.")
+    }
     if(!validatePeso(paciente.peso)) {
-        erros.push("O peso não é válido.");
+        errors.push("O peso não é válido.");
     } 
+    if(paciente.peso.length === 0) {
+        errors.push("O peso não pode ser em branco.")
+    }
     if(!validateAltura(paciente.altura)) {
-        erros.push("A altura não é válida.")
+        errors.push("A altura não é válida.")
+    }
+    if(paciente.altura.length === 0) {
+        errors.push("A altura não pode ser em branco.")
+    }
+    if(paciente.gordura.length === 0) {
+        errors.push("A gordura não pode ser em branco.")
     }
 
-    return erros;
+    return errors;
+}
+
+function showsErrorMessage(erros) {
+    var errorlist = document.querySelector('.errorlist');
+    errorlist.innerHTML = "";
+
+    erros.forEach(erro => {
+	    var li = document.createElement('li');
+	    li.textContent = erro;
+        errorlist.appendChild(li);
+});
 }
