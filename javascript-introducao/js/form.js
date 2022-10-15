@@ -14,18 +14,18 @@ adicionar.addEventListener('click', (event) => {
     if(erros.length > 0) {
         showsErrorMessage(erros);
     } else {
-        //cria tr e td
-        var pacienteTr = createTr(paciente);
-    
-        //adiciona o paciente na tabela
-        var tabela = document.querySelector('#tabela-pacientes');
-        tabela.appendChild(pacienteTr);
-    
+        addPaciente(paciente);
         form.reset();
         document.querySelector(".errorlist").innerHTML = "";
     }
     
 });
+
+function addPaciente(paciente) {
+    var pacienteTr = createTr(paciente);
+    var tabela = document.querySelector('#tabela-pacientes');
+    tabela.appendChild(pacienteTr);
+}
 
 function createPaciente(form) {
 
